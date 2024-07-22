@@ -3,6 +3,7 @@ on:
   push:
     branches: 
       - main
+      - day-1
   pull_request:
     branches:
       - main
