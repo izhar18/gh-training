@@ -3,10 +3,14 @@ on:
   push:
     branches: 
       - main
+      - day-1
+    paths-ignore: 
+      - '.github/**'  
   pull_request:
     branches:
       - main
-      paths-ignore: [.github/**]
+    paths-ignore: 
+      - '.github/**'
   workflow_dispatch:
   schedule:
     - cron: '15 18 * * SUN'
@@ -16,11 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Build project
         run: |
           echo "The event that triggered this workflow is ${{ github.event_name }}"
-        run: |
           echo "The name of the branch is ${{ github.ref }}" 
-        run: |
-          echo "All files in the repository are ${{ steps.checkout.outputs.files }}"
+          run: git ls-files
