@@ -4,6 +4,8 @@ on:
     branches: 
       - main
       - day-1
+    paths-ignore: 
+      - '.github/**'  
   pull_request:
     branches:
       - main
@@ -18,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Build project
         run: |
           echo "The event that triggered this workflow is ${{ github.event_name }}"
