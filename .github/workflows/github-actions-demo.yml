@@ -12,14 +12,15 @@ on:
     paths-ignore: 
       - '.github/**'
   workflow_dispatch:
-    environment:
-        description: 'Environment to deploy to'
-        required: true
-        type: choice
-        options:
-          - Production
-          - Test
-          - Load-Test
+    inputs:
+      environment:
+          description: 'Environment to deploy to'
+          required: true
+          type: choice
+          options:
+            - Production
+            - Test
+            - Load-Test
   schedule:
     - cron: '15 18 * * 0'
 
