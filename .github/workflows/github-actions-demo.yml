@@ -25,4 +25,4 @@ jobs:
         run: |
           echo "The event that triggered this workflow is ${{ github.event_name }}"
           echo "The name of the branch is ${{ github.ref }}" 
-          git ls-files
+          ls -la ../../../
