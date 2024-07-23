@@ -19,6 +19,8 @@ jobs:
     outputs:
       current-time: ${{ steps.time.outputs.time }}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Greet someone
         run: echo "Hello ${{ inputs.who-to-greet }}"
       - name: Set time
