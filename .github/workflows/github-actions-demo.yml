@@ -12,6 +12,15 @@ on:
     paths-ignore: 
       - '.github/**'
   workflow_dispatch:
+    inputs:
+      environment:
+          description: 'Environment to deploy to'
+          required: true
+          type: choice
+          options:
+            - Production
+            - Test
+            - Load-Test
   schedule:
     - cron: '15 18 * * 0'
 
@@ -26,3 +35,53 @@ jobs:
           echo "The event that triggered this workflow is ${{ github.event_name }}"
           echo "The name of the branch is ${{ github.ref }}" 
           ls -la ../../../
+  Test:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    environment: Test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run tests
+        run: |
+          # Add test commands here
+          echo "Running tests"
+  Load-Test:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch'
+    environment: Load-Test
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run load tests
+        run: |
+          # Add load test commands here
+          echo "run tests"
+
+  Production:
+    needs: [Test, Load-Test]
+    runs-on: ubuntu-latest
+    environment:
+      name: Production
+      url: https://writeabout.net
+    if: github.event.inputs.environment == 'Production'
+    steps:
+      - name: Checkout and deploy to prod
+        uses: actions/checkout@v4
+      - run: |
+          echo "🚀 Step 1..."
+          sleep 10
+      - run: |
+          echo "🚀 Step 2..."
+          sleep 10
+      - run: |
+          echo "🚀 Step 3..."
+          sleep 10
+      - run: |
+          echo "🚀 Step 4..."
+          sleep 10
+      - run: |
+          echo "🚀 Step 5..."
+          sleep 10
