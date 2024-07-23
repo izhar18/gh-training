@@ -10,8 +10,9 @@ on:
         default: World
     outputs:
       current-time:
-        description: 'The time when greeting.'
+        description: 'The current time when the workflow was run'
         value: ${{ jobs.reusable-job.outputs.current-time }}
+
 
 jobs:
   reusable-job:
