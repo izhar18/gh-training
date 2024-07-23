@@ -7,12 +7,10 @@ jobs:
   call-workflow:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4 
     - name: Call reusable workflow
-      uses: izhar18/gh-training/.github/workflows/reusable.yml
+      uses: ./.github/workflows/reusable.yml
       with:
-        who-to-greet: 'Izhar' 
+        who-to-greet: '@Izhar' 
 
   use-output:
    runs-on: ubuntu-latest
