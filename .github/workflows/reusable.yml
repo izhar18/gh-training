@@ -10,8 +10,9 @@ on:
         default: World
     outputs:
       current-time:
-        description: 'The time when greeting.'
+        description: 'The current time when the workflow was run'
         value: ${{ jobs.reusable-job.outputs.current-time }}
+
 
 jobs:
   reusable-job:
@@ -19,6 +20,8 @@ jobs:
     outputs:
       current-time: ${{ steps.time.outputs.time }}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
       - name: Greet someone
         run: echo "Hello ${{ inputs.who-to-greet }}"
       - name: Set time
